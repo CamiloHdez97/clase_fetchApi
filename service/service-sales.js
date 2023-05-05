@@ -1,15 +1,14 @@
 import "../component/NavBar.js";
-import Customers from "../js/customers.js";
 
 const URL_API = "https://64524861bce0b0a0f741cb69.mockapi.io/";
-const regCli = document.querySelector('#regCli');
-const listCli = document.querySelector('#listCli');
-const SearchCli = document.querySelector('#SearchCli');
+const regCli = document.querySelector('#regSale');
+const listSale = document.querySelector('#listSale');
+const SearchCli = document.querySelector('#SearchSale');
 
-const getCustomers = async () => {
+const getSales = async () => {
 
     try{
-        const respuesta = await fetch(`${URL_API}/Users`);
+        const respuesta = await fetch(`${URL_API}/Users/:id/sales`);
         //Respuesta correcta
         if(respuesta.status === 200){
             const datos = await respuesta.json();
@@ -27,30 +26,30 @@ const getCustomers = async () => {
 
 }
 
-listCli.addEventListener("click", getCustomers);
+listSale.addEventListener("click", getSales);
 
-function viewDataHtml(dataUsers){
+function viewDataHtml(dataSale){
     
-    const divCards = document.querySelector('#cardsUsers');
+    const divSales = document.querySelector('#cardsSales');
     divCards.innerHTML = "";
 
-    dataUsers.forEach(user => {
+    dataSale.forEach(sale => {
         
-        const cardUser = document.createElement('div');
+        const cardSale = document.createElement('div');
         cardUser.innerHTML = /* html */ `
             <div class="card text-white bg-info mb-3" style="max-width: 18rem;">
                 <div class="card-header">Header</div>
                     <div class="card-body">
                         <h5 class="card-title">Info card title</h5>
-                        <p class="card-text">${user.name} ${user.lastname}</p>
-                        <p class="card-text">${user.email}</p>
+                        <p class="card-text">${sale.nameVendedor}</p>
+                        <p class="card-text">${sale.productos}</p>
                     </div>
             </div>
 
             `;
            
-            divCards.appendChild(cardUser);
-            console.log(dataUsers);
+            divSales.appendChild(cardSale);
+            console.log(dataSale);
 
     });
     
